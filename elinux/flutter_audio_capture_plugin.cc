@@ -125,13 +125,13 @@ void FlutterAudioCapturePlugin::RegisterWithRegistrar(
       [](const flutter::EncodableValue* arguments)
           -> std::unique_ptr<
               flutter::StreamHandlerError<flutter::EncodableValue>> {
-        event_sink_ = nullptr;
-        
         is_recording = false;
         if (thread != nullptr) {
           thread->join();
           delete thread;
         }
+
+        event_sink_.reset();
 
         return nullptr;
       });
